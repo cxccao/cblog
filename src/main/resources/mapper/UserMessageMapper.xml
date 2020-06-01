@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxc.cblog.mapper.UserMessageMapper">
+    <select id="selectMessages" resultType="com.cxc.cblog.vo.UserMessageVo">
+
+        SELECT m.*,
+            ( SELECT username FROM `user` WHERE id = m.to_user_id ) AS toUserName,
+            ( SELECT username FROM `user` WHERE id = m.from_user_id ) AS fromUserName,
+            ( SELECT title FROM `post` WHERE id = m.post_id ) AS postTitle
+        FROM `user_message` m
+
+        ${ew.customSqlSegment}
+
+    </select>
+    
+    <update id="updateToReaded">
+        update user_message set status = 1
+        ${ew.customSqlSegment}
+    </update>
+
+</mapper>

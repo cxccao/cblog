@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxc.cblog.mapper.UserCollectionMapper">
+    <select id="selectPosts" resultType="com.cxc.cblog.vo.UserCollectionVo">
+
+        select *,
+        u.post_id as postId,
+        u.created as created,
+
+        p.title as title,
+        p.view_count as viewCount,
+        p.comment_count as commentCount
+
+        from user_collection u
+        left join post p on u.post_id = p.id
+
+        ${ew.customSqlSegment}
+    </select>
+</mapper>
